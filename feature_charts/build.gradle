@@ -1,0 +1,67 @@
+apply plugin: 'com.android.dynamic-feature'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+
+    compileSdkVersion AndroidConfig.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion AndroidConfig.minSdkVersion
+        targetSdkVersion AndroidConfig.targetSdkVersion
+        versionCode AppVersion.code
+        versionName AppVersion.name
+
+        buildConfigField(
+                BuildConfigFields.typeString,
+                BuildConfigFields.chartAndStatsApiUrlParamName,
+                BuildConfigFields.chartAndStatsApiUrl
+        )
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+
+    implementation Kotlin.stdlib
+
+    implementation project(Modules.app)
+    implementation project(Modules.commonData)
+    implementation project(Modules.commonDomain)
+
+    implementation AndroidX.appCompat
+    implementation AndroidX.coreKtx
+    implementation Lifecycle.extensions
+    implementation MaterialDesign.material
+    implementation ConstraintLayout.constraintLayout
+
+    implementation MPChart.chart
+
+    implementation RxLibraries.java
+    implementation RxLibraries.kotlin
+    implementation RxLibraries.android
+
+    implementation Retrofit.retrofit
+    implementation Retrofit.rxJava2Adapter
+    implementation Retrofit.gsonConverterAdapter
+
+    implementation OkHttp.okHttp
+    implementation OkHttp.logger
+
+    implementation Koin.viewModel
+
+    implementation Koptional.koptional
+
+    testImplementation JUnit.junit
+
+    androidTestImplementation TestRunner.runner
+    androidTestImplementation Espresso.core
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MarketPriceChartFragment"
+    tools:showIn="@layout/activity_charts_and_stats">
+
+    <TextView
+        android:id="@+id/currentPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/textHighlightColor"
+        android:textSize="48sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="$10,288.92" />
+
+    <TextView
+        android:id="@+id/marketPriceDescriptionTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="48dp"
+        android:gravity="center"
+        android:textColor="@color/textColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/currentPriceTextView"
+        tools:text="Average USD market price across major bitcoin exchanges." />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/timeSpanChipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:checkedButton="@id/thirtyDaysButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/marketPriceDescriptionTextView"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/thirtyDaysButton"
+            style="@style/AppTheme.ChartsFeature.ToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/feature_charts_toggle_button_height"
+            android:text="@string/feature_charts_filter_thirty_days" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/threeMonthsButton"
+            style="@style/AppTheme.ChartsFeature.ToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/feature_charts_toggle_button_height"
+            android:text="@string/feature_charts_filter_three_months" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/oneYearButton"
+            style="@style/AppTheme.ChartsFeature.ToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/feature_charts_toggle_button_height"
+            android:text="@string/feature_charts_filter_one_year" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/allTimeButton"
+            style="@style/AppTheme.ChartsFeature.ToggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/feature_charts_toggle_button_height"
+            android:text="@string/feature_charts_filter_all" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/marketPriceChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/timeSpanChipGroup" />
+</androidx.constraintlayout.widget.ConstraintLayout>
