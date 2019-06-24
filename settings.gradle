@@ -1,1 +1,1 @@
-include ':app', ':feature_charts', ':common_domain', ':common_data'
+include ':app', ':feature_charts', ':common_domain', ':common_data', ':common_presentation'

@@ -1,4 +1,4 @@
-package com.psimao.bitmarket.charts
+package com.psimao.bitmarket.charts.domain
 
 import com.psimao.bitmarket.charts.domain.repository.ChartsRepository
 import com.psimao.bitmarket.domain.ReactiveInteractor

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="feature_charts_duration_chart_animation">1500</integer>
+    <integer name="feature_charts_duration_market_price_animation">900</integer>
+    <integer name="feature_charts_duration_description_animation">600</integer>
+</resources>

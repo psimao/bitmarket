@@ -75,13 +75,84 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <com.github.mikephil.charting.charts.LineChart
+    <com.psimao.bitmarket.charts.ui.BitmarketLineChart
         android:id="@+id/marketPriceChart"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/timeSpanChipGroup" />
+
+    <ProgressBar
+        android:id="@+id/currentPriceProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/currentPriceTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/currentPriceTextView" />
+
+    <ProgressBar
+        android:id="@+id/marketPriceDescriptionProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/marketPriceDescriptionTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/marketPriceDescriptionTextView" />
+
+    <ProgressBar
+        android:id="@+id/marketPriceChartProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="176dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/marketPriceChart"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/marketPriceChart" />
+
+    <TextView
+        android:id="@+id/errorMessageTitleTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:text="@string/error_title"
+        android:textStyle="bold"
+        android:textColor="@color/textColor"
+        android:textSize="32sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/errorMessageDetailsTextView"
+        app:layout_constraintEnd_toEndOf="@id/marketPriceChart"
+        app:layout_constraintStart_toStartOf="@id/marketPriceChart"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="@id/marketPriceChart" />
+
+    <TextView
+        android:id="@+id/errorMessageDetailsTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:text="@string/error_details"
+        android:textColor="@color/textColor"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/marketPriceChart"
+        app:layout_constraintEnd_toEndOf="@id/marketPriceChart"
+        app:layout_constraintStart_toStartOf="@id/marketPriceChart"
+        app:layout_constraintTop_toBottomOf="@id/errorMessageTitleTextView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

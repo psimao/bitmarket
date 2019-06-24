@@ -1,13 +1,12 @@
 package com.psimao.bitmarket.charts.presentation
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.psimao.bitmarket.charts.RefreshMarketPriceChartInteractor
 import com.psimao.bitmarket.charts.di.ChartsAndStatsComponent
+import com.psimao.bitmarket.charts.domain.RefreshMarketPriceChartInteractor
 import com.psimao.bitmarket.charts.domain.RetrieveMarketPriceChartInteractor
-import com.psimao.bitmarket.charts.domain.entity.ChartData
+import com.psimao.bitmarket.presentation.ViewEntityHolder
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -17,7 +16,7 @@ class MarketPriceViewModel : ViewModel(), ChartsAndStatsComponent {
 
     companion object {
 
-        private val DEFAULT_TIME_SPAN = TimeSpanOption.THIRTY_DAYS
+        private val DEFAULT_TIME_SPAN = MarketPriceViewEntity.TimeSpanOption.THIRTY_DAYS
     }
 
     private val retrieveMarketPriceChartInteractor: RetrieveMarketPriceChartInteractor by inject()
@@ -25,13 +24,15 @@ class MarketPriceViewModel : ViewModel(), ChartsAndStatsComponent {
 
     private val disposables: CompositeDisposable by lazy { CompositeDisposable() }
 
-    private val _marketPriceChart: MutableLiveData<ChartData> = MutableLiveData()
+    private lateinit var marketPriceDisposable: Disposable
 
-    val marketPriceChart: LiveData<ChartData>
-        get() = _marketPriceChart
+    private val _marketPriceEntityHolder: MutableLiveData<ViewEntityHolder<MarketPriceViewEntity>> = MutableLiveData()
+    val marketPriceEntityHolder: LiveData<ViewEntityHolder<MarketPriceViewEntity>>
+        get() = _marketPriceEntityHolder
 
     init {
-        disposables.add(bindToMarketPriceChart())
+        postLoading()
+        bindToMarketPriceChart()
     }
 
     override fun onCleared() {
@@ -39,25 +40,38 @@ class MarketPriceViewModel : ViewModel(), ChartsAndStatsComponent {
         disposables.dispose()
     }
 
-    fun notifyTimeSpanChanged(timeSpanOption: TimeSpanOption) {
+    fun notifyTimeSpanChanged(timeSpanOption: MarketPriceViewEntity.TimeSpanOption) {
+        postLoading()
+        if (marketPriceDisposable.isDisposed) bindToMarketPriceChart()
         disposables.add(refreshMarketPriceChart(timeSpanOption))
     }
 
-    private fun onMarketPriceChartAvailable(chartData: ChartData) {
-        _marketPriceChart.postValue(chartData)
+    private fun postLoading() {
+        _marketPriceEntityHolder.value = ViewEntityHolder.loading()
+    }
+
+    private fun onMarketPriceChartAvailable(viewEntity: MarketPriceViewEntity) {
+        _marketPriceEntityHolder.postValue(ViewEntityHolder.create(viewEntity))
     }
 
     private fun onMarketPriceChartError(throwable: Throwable) {
-        Log.e(MarketPriceViewModel::class.java.simpleName, throwable.localizedMessage, throwable)
+        _marketPriceEntityHolder.postValue(ViewEntityHolder.withError(MarketPriceGeneralErrorViewEntity()))
+        throwable.printStackTrace()
     }
 
     private fun bindToMarketPriceChart(): Disposable =
         retrieveMarketPriceChartInteractor.getStream(DEFAULT_TIME_SPAN.stringValue)
+            .map(MarketPriceViewEntityMapper.create())
             .observeOn(Schedulers.computation())
             .subscribe(::onMarketPriceChartAvailable, ::onMarketPriceChartError)
+            .also {  disposable ->
+                disposables.add(disposable)
+                marketPriceDisposable = disposable
+            }
 
-    private fun refreshMarketPriceChart(timeSpanOption: TimeSpanOption): Disposable =
+    private fun refreshMarketPriceChart(timeSpanOption: MarketPriceViewEntity.TimeSpanOption): Disposable =
         refreshMarketPriceChartInteractor.getRefreshCompletable(timeSpanOption.stringValue)
             .observeOn(Schedulers.computation())
-            .subscribe()
+            .subscribe({}, ::onMarketPriceChartError)
+            .also {  disposable -> disposables.add(disposable) }
 }

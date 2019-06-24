@@ -4,4 +4,6 @@
     <string name="feature_charts_filter_three_months">3 Months</string>
     <string name="feature_charts_filter_one_year">1 Year</string>
     <string name="feature_charts_filter_all">All time</string>
+    <string name="error_title">Ooops! :(</string>
+    <string name="error_details">Unable to get <b>market price</b> information.\nPlease, check your connection and try again.</string>
 </resources>

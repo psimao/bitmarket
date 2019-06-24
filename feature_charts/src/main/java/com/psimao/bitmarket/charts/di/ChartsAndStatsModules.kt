@@ -1,7 +1,7 @@
 package com.psimao.bitmarket.charts.di
 
 import com.psimao.bitmarket.charts.BuildConfig
-import com.psimao.bitmarket.charts.RefreshMarketPriceChartInteractor
+import com.psimao.bitmarket.charts.domain.RefreshMarketPriceChartInteractor
 import com.psimao.bitmarket.charts.data.SyncedChartsRepository
 import com.psimao.bitmarket.charts.data.remote.ChartsAndStatsApiProvider
 import com.psimao.bitmarket.charts.data.store.ChartStore

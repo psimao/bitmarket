@@ -11,6 +11,7 @@ internal object ChartDataMapper {
         timeSpan: String
     ): ChartData = ChartData(
         type = chartType,
+        name = chartResponse.name,
         timeSpan = timeSpan,
         stats = BitcoinStatsMapper.transform(statsResponse),
         description = chartResponse.description,

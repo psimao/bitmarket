@@ -36,6 +36,7 @@ dependencies {
     implementation project(Modules.app)
     implementation project(Modules.commonData)
     implementation project(Modules.commonDomain)
+    implementation project(Modules.commonPresentation)
 
     implementation AndroidX.appCompat
     implementation AndroidX.coreKtx
