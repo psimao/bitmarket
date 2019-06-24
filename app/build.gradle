@@ -14,8 +14,6 @@ android {
 
         versionCode AppVersion.code
         versionName AppVersion.name
-
-        testInstrumentationRunner AndroidConfig.testInstrumentationRunner
     }
 
     buildTypes {
@@ -51,9 +49,4 @@ dependencies {
     implementation RxLibraries.java
     implementation RxLibraries.kotlin
     implementation RxLibraries.android
-
-    testImplementation JUnit.junit
-
-    androidTestImplementation TestRunner.runner
-    androidTestImplementation Espresso.core
 }

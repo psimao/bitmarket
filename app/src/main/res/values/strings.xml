@@ -1,5 +1,4 @@
 <resources>
     <string name="app_name">Bitmarket</string>
     <string name="title_feature_charts">Module Title</string>
-    <string name="title_activity_charts_and_stats">ChartsAndStatsActivity</string>
 </resources>

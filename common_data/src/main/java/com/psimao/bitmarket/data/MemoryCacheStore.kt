@@ -26,7 +26,7 @@ class MemoryCacheStore<Key, Value : Any>(private val extractKeyFromValue: (Value
     override fun getAll(): Flowable<Optional<List<Value>>> =
         Flowable.defer {
             allSubject
-                .startWith(Optional.toOptional(cache.elements().toList()))
+                .startWith(Optional.toOptional(getElementsOrNull()))
                 .toFlowable(BackpressureStrategy.DROP)
         }
 
@@ -61,7 +61,7 @@ class MemoryCacheStore<Key, Value : Any>(private val extractKeyFromValue: (Value
         extractKeyFromValue.invoke(model).also { key ->
             cache[key] = model
             synchronized(singleSubjectsMap) { singleSubjectsMap[key]?.onNext(Optional.toOptional(model)) }
-            allSubject.onNext(Optional.toOptional(cache.elements().toList()))
+            allSubject.onNext(Optional.toOptional(getElementsOrNull()))
         }
     }
 
@@ -74,6 +74,9 @@ class MemoryCacheStore<Key, Value : Any>(private val extractKeyFromValue: (Value
                 singleSubjectsMap[modelEntry.key]?.onNext(Optional.toOptional(modelEntry.value))
             }
         }
-        allSubject.onNext(Optional.toOptional(cache.elements().toList()))
+        allSubject.onNext(Optional.toOptional(getElementsOrNull()))
     }
+
+    private fun getElementsOrNull(): List<Value>? =
+        cache.elements().toList().ifEmpty { null }
 }
